@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_wildylooterv3" default="compile.module.wildylooterv3">
+  <dirname property="module.wildylooterv3.basedir" file="${ant.file.module_wildylooterv3}"/>
+  
+  <property name="module.jdk.home.wildylooterv3" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.wildylooterv3" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.wildylooterv3" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.wildylooterv3" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+  
+  <property name="wildylooterv3.output.dir" value="${module.wildylooterv3.basedir}/out/production/WildyLooterv3"/>
+  <property name="wildylooterv3.testoutput.dir" value="${module.wildylooterv3.basedir}/out/test/WildyLooterv3"/>
+  
+  <path id="wildylooterv3.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="wildylooterv3.module.production.classpath">
+    <path refid="${module.jdk.classpath.wildylooterv3}"/>
+    <path refid="library.osbot_2.4.136.classpath"/>
+  </path>
+  
+  <path id="wildylooterv3.runtime.production.module.classpath">
+    <pathelement location="${wildylooterv3.output.dir}"/>
+    <path refid="library.osbot_2.4.136.classpath"/>
+  </path>
+  
+  <path id="wildylooterv3.module.classpath">
+    <path refid="${module.jdk.classpath.wildylooterv3}"/>
+    <pathelement location="${wildylooterv3.output.dir}"/>
+    <path refid="library.osbot_2.4.136.classpath"/>
+  </path>
+  
+  <path id="wildylooterv3.runtime.module.classpath">
+    <pathelement location="${wildylooterv3.testoutput.dir}"/>
+    <pathelement location="${wildylooterv3.output.dir}"/>
+    <path refid="library.osbot_2.4.136.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.wildylooterv3">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.wildylooterv3">
+    <patternset refid="excluded.from.module.wildylooterv3"/>
+  </patternset>
+  
+  <path id="wildylooterv3.module.sourcepath">
+    <dirset dir="${module.wildylooterv3.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.wildylooterv3" depends="compile.module.wildylooterv3.production,compile.module.wildylooterv3.tests" description="Compile module WildyLooterv3"/>
+  
+  <target name="compile.module.wildylooterv3.production" depends="register.custom.compilers" description="Compile module WildyLooterv3; production classes">
+    <mkdir dir="${wildylooterv3.output.dir}"/>
+    <javac2 destdir="${wildylooterv3.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.wildylooterv3}/javac">
+      <compilerarg line="${compiler.args.wildylooterv3}"/>
+      <bootclasspath refid="wildylooterv3.module.bootclasspath"/>
+      <classpath refid="wildylooterv3.module.production.classpath"/>
+      <src refid="wildylooterv3.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.wildylooterv3"/>
+    </javac2>
+    
+    <copy todir="${wildylooterv3.output.dir}">
+      <fileset dir="${module.wildylooterv3.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.wildylooterv3.tests" depends="register.custom.compilers,compile.module.wildylooterv3.production" description="compile module WildyLooterv3; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.wildylooterv3" description="cleanup module">
+    <delete dir="${wildylooterv3.output.dir}"/>
+    <delete dir="${wildylooterv3.testoutput.dir}"/>
+  </target>
+</project>

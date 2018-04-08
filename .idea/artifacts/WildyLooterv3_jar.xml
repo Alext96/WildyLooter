@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="WildyLooterv3:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/WildyLooterv3_jar</output-path>
+    <root id="archive" name="WildyLooterv3.jar">
+      <element id="module-output" name="WildyLooterv3" />
+    </root>
+  </artifact>
+</component>
